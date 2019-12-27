@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<style>
+	body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    position: relative;
+    overflow-y: auto;
+}
+
+	#aside{
+		width:200px;
+		height:3000px;
+		position:fixed;
+		background:orange;
+		overflow:hidden;
+		float:left;
+	}
+
+	#section{
+		margin-left:300px;
+		margin-right:1000px;
+		margin-bottom:100px;
+		background:white;
+	}
+
+	table,th,td{
+		border:1px solid#000000;
+	}
+</style>
+
+<body>
+	<div id = "aside">
+		
+	</div>
+	
+	<div id = "section">
+		<h1>index</h1>
+		<h2>sakila data base 정보</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>테이블 이름</th>
+					<th>행의 수</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>country</td>
+					<td><span id = "countryRow"></span></td>
+				</tr>
+				<tr>
+					<td>city</td>
+					<td><span id = "cityRow"></span></td>
+				</tr>
+				<tr>
+					<td>address</td>
+					<td><span id = "addressRow"></span></td>
+				</tr>
+				<tr>
+					<td>customer</td>
+					<td><span id = "customerRow"></span></td>
+				</tr>
+				<tr>
+					<td>staff</td>
+					<td><span id = "staffRow"></span></td>
+				</tr>
+				<tr>
+					<td>store</td>
+					<td><span id = "storeRow"></span></td>
+				</tr>
+				<tr>
+					<td>payment</td>
+					<td><span id = "paymentRow"></span></td>
+				</tr>
+				<tr>
+					<td>rental</td>
+					<td><span id = "rentalRow"></span></td>
+				</tr>
+				<tr>
+					<td>category</td>
+					<td><span id = "categoryRow"></span></td>
+				</tr>
+				
+				<tr>
+					<td>filmCategory</td>
+					<td><span id = "filmCategoryRow"></span></td>
+				</tr>
+				<tr>
+					<td>film</td>
+					<td><span id = "filmRow"></span></td>
+				</tr>
+				<tr>
+					<td>language</td>
+					<td><span id = "languageRow"></span></td>
+				</tr>
+				<tr>
+					<td>actor</td>
+					<td><span id = "actorRow"></span></td>
+				</tr>
+				<tr>
+					<td>filmActor</td>
+					<td><span id = "filmActorRow"></span></td>
+				</tr>
+				<tr>
+					<td>inventory</td>
+					<td><span id = "inventoryRow"></span></td>
+				</tr>
+				<tr>
+					<td>filmText</td>
+					<td><span id = "filmTextRow"></span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+	$("#aside").load("/sakila/aside.html");
+</script>
+
+<script>
+	
+</script>
+</html>
