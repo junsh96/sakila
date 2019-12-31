@@ -67,12 +67,12 @@
 							<!-- address add -->
 					</tr>
 						<fieldset>
-							<div>address: <input type = "text"></div>
-							<div>address2: <input type = "text"></div>
-							<div>district: <input type = "text"></div>
+							<div>address: <input type = "text" id = "address"></div>
+							<div>address2: <input type = "text" id = "address2"></div>
+							<div>district: <input type = "text" id = "district"></div>
 							<div>cityId: <input type = "text" id = "cityId" readonly="readonly"></div>
-							<div>postalCode: <input type = "text"></div>
-							<div>phone: <input type = "text"></div>
+							<div>postalCode: <input type = "text" id = "postalCode"></div>
+							<div>phone: <input type = "text" id = "phone"></div>
 						</fieldset>
 				</table>
 				<button id = "add">addressAdd</button>
@@ -80,18 +80,22 @@
 		<h2>addressList</h2>
 		<table border = "1">
 			<thead>
-				<tr>addressId</tr>
-				<tr>address</tr>
-				<tr>address2</tr>
-				<tr>district</tr>
-				<tr>postalCode</tr>
-				<tr>phone</tr>
-				<tr>lastUpdate</tr>
+				<tr>
+					<td>addressId</td>
+					<td>address</td>
+					<td>address2</td>
+					<td>district</td>
+					<td>postalCode</td>	
+					<td>phone</td>
+					<td>lastUpdate</td>
+				</tr>
 			</thead>
 			<tbody id = "addressList">
 				
 			</tbody>
 		</table>
+		<button id = "preBtn">이전</button>
+		<button id = "nextBtn">다음</button>
 	</div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -136,12 +140,12 @@
 	$("#cityList").change(function(){
 		$("#cityId").val($("#cityList").val());
 	});
-	
+	let currentPage = 1;
 	$.ajax({
 		url:"/sakila/selectAddressList",
 		method:"POST",
+		data:{"currentPage" : currentPage},
 		success:function(json){
-			
 			$("#addressList").empty();
 			$(json).each(function(index, item){
 				temp = "<tr><td>";
@@ -162,6 +166,93 @@
 				$("#addressList").append(temp);
 			});
 		}
+	});
+	//페이징
+	
+	$("#preBtn").click(function(){
+		if(currentPage ===1){
+			alert("현재 1페이지 입니다.");
+			return;
+		}
+		currentPage -=1;
+		console.log("currentPage:"+currentPage);
+		$("#addressList").empty();//리스트 청소/ 중복방지
+		$.ajax({
+			url:"/sakila/selectAddressList",
+			method:"POST",
+			data:{"currentPage" : currentPage},
+			success:function(json){
+				$("#addressList").empty();
+				$(json).each(function(index, item){
+					temp = "<tr><td>";
+					temp += item.addressId;
+					temp += "</td><td>";
+					temp += item.address;
+					temp += "</td><td>";
+					temp += item.address2;
+					temp += "</td><td>";
+					temp += item.district;
+					temp += "</td><td>";
+					temp += item.postalCode;
+					temp += "</td><td>";
+					temp += item.phone;
+					temp += "</td><td>";
+					temp += item.lastUpdate;
+					temp += "</td></tr>";
+					$("#addressList").append(temp);
+				});
+			}
+		});
+	});
+	$("#nextBtn").click(function(){
+		
+		currentPage +=1;
+		console.log("currentPage:"+currentPage);
+		
+		$("#addressList").empty();//리스트 청소/ 중복방지
+		$.ajax({
+			url:"/sakila/selectAddressList",
+			method:"POST",
+			data:{"currentPage" : currentPage},
+			success:function(json){
+				$("#addressList").empty();
+				$(json).each(function(index, item){
+					temp = "<tr><td>";
+					temp += item.addressId;
+					temp += "</td><td>";
+					temp += item.address;
+					temp += "</td><td>";
+					temp += item.address2;
+					temp += "</td><td>";
+					temp += item.district;
+					temp += "</td><td>";
+					temp += item.postalCode;
+					temp += "</td><td>";
+					temp += item.phone;
+					temp += "</td><td>";
+					temp += item.lastUpdate;
+					temp += "</td></tr>";
+					$("#addressList").append(temp);
+				});
+			}
+		});
+	});
+	//현재 예외 발생-> 오류 해결 요망
+	$("#add").click(function(){
+		$.ajax({
+			url:"/sakila/insertAddress",
+			method:"POST",
+			data:{"address": $("#address").val(),
+				"address2" : $("address2").val(),
+				"district" : $("#district").val(),
+				"cityId" : $("#cityId").val(),
+				"postalCode" : $("#postalCode").val(),
+				"phone" : $("#phone").val()
+			},
+			success:function(){
+				console.log("success");
+			}
+		});
 	});
 </script>
 </html>
