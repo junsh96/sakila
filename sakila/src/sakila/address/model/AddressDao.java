@@ -51,27 +51,44 @@ public class AddressDao {
 		int addressId = 0;
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		String sql = "INSERT INTO address(address,address2,district,city_id,postal_code,phone,last_update)VALUES(?,?,?,?,?,NOW())";
+
+		String sql = "INSERT INTO address(address,address2,district,city_id,postal_code,phone,last_update)VALUES(?,?,?,?,?,?,NOW())";
 		try {
 			conn = DBHelp.getConnection();
-			stmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, address.getAddress());
 			stmt.setString(2, address.getAddress2());
 			stmt.setString(3, address.getDistrict());
-			stmt.setInt(4, address.getCity().getCityId());
+			stmt.setInt(4, address.getCityId());
 			stmt.setString(5, address.getPostalCode());
 			stmt.setString(6, address.getPhone());
-			rs = stmt.getGeneratedKeys();//프라이머리키값 리턴
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBHelp.close(null, stmt, conn);
+		}
+		
+		return addressId;
+	}
+	//address총 갯수 확인
+	public int selectAddressCount() {
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT FROM address";
+		try {
+			conn = DBHelp.getConnection();
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
 			if(rs.next()) {
-				addressId = rs.getInt(1);
+				count = rs.getInt("COUNT(*)");
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
 			DBHelp.close(rs, stmt, conn);
 		}
-		
-		return addressId;
+		return count;
 	}
 }

@@ -205,7 +205,23 @@
 		});
 	});
 	$("#nextBtn").click(function(){
-		
+		let count = 0;
+		$.ajax({
+			url:"/sakila/selectAddressCount",
+			method:"POST",
+			async:false,
+			success:function(json){
+				console.log("json:"+json);
+				count = Number(json);
+			}
+		});
+		let lastPage = Math.ceil(count/10);
+		console.log("count:"+count);
+		console.log("lastPage:"+lastPage);
+		if(currentPage == lastPage){
+			alert("마지막페이지 입니다.");
+			return;
+		}
 		currentPage +=1;
 		console.log("currentPage:"+currentPage);
 		
@@ -243,7 +259,7 @@
 			url:"/sakila/insertAddress",
 			method:"POST",
 			data:{"address": $("#address").val(),
-				"address2" : $("address2").val(),
+				"address2" : $("#address2").val(),
 				"district" : $("#district").val(),
 				"cityId" : $("#cityId").val(),
 				"postalCode" : $("#postalCode").val(),
@@ -251,6 +267,7 @@
 			},
 			success:function(){
 				console.log("success");
+				console.log("address2:"+$("#address2").val());
 			}
 		});
 	});

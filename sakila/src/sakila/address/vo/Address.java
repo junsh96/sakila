@@ -5,7 +5,7 @@ public class Address {
 	private String address;
 	private String address2;
 	private String district;
-	private City city;
+	private int cityId;
 	private String postalCode;
 	private String phone;
 	private String lastUpdate;
@@ -33,11 +33,11 @@ public class Address {
 	public void setDistrict(String district) {
 		this.district = district;
 	}
-	public City getCity() {
-		return city;
+	public int getCityId() {
+		return cityId;
 	}
-	public void setCity(City city) {
-		this.city = city;
+	public void setCityId(int cityId) {
+		this.cityId = cityId;
 	}
 	public String getPostalCode() {
 		return postalCode;
@@ -60,7 +60,7 @@ public class Address {
 	@Override
 	public String toString() {
 		return "Address [addressId=" + addressId + ", address=" + address + ", address2=" + address2 + ", district="
-				+ district + ", city=" + city + ", postalCode=" + postalCode + ", phone=" + phone + ", lastUpdate="
+				+ district + ", cityId=" + cityId + ", postalCode=" + postalCode + ", phone=" + phone + ", lastUpdate="
 				+ lastUpdate + "]";
 	}
 }

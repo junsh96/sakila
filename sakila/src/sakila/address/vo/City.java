@@ -3,7 +3,8 @@ package sakila.address.vo;
 public class City {
 	private int cityId;
 	private String city;
-	private Country country;
+	private int countryId;
+	private String country;
 	private String lastUpdate;
 	public int getCityId() {
 		return cityId;
@@ -17,10 +18,16 @@ public class City {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public Country getCountry() {
+	public int getCountryId() {
+		return countryId;
+	}
+	public void setCountryId(int countryId) {
+		this.countryId = countryId;
+	}
+	public String getCountry() {
 		return country;
 	}
-	public void setCountry(Country country) {
+	public void setCountry(String country) {
 		this.country = country;
 	}
 	public String getLastUpdate() {
@@ -31,7 +38,8 @@ public class City {
 	}
 	@Override
 	public String toString() {
-		return "City [cityId=" + cityId + ", city=" + city + ", country=" + country + ", lastUpdate=" + lastUpdate
-				+ "]";
+		return "City [cityId=" + cityId + ", city=" + city + ", countryId=" + countryId + ", country=" + country
+				+ ", lastUpdate=" + lastUpdate + "]";
 	}
+	
 }

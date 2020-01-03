@@ -36,4 +36,34 @@ public class CityDao {
 		
 		return list;
 	}
+	public List<City> selectCityList(int currentPage){
+		List<City> list = new ArrayList<City>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		final int rowPerPage = 10;
+		int beginRow = (currentPage-1)*rowPerPage;
+		String sql = "SELECT c.city_id,c.city,c.country_id,c.last_update,co.country FROM city as c JOIN country as co WHERE c.country_id = co.country_id ORDER BY city_id DESC LIMIT ?,?";
+		try {
+			conn = DBHelp.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, beginRow);
+			stmt.setInt(2, rowPerPage);
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				City c = new City();
+				c.setCityId(rs.getInt("city_id"));
+				c.setCity(rs.getString("city"));
+				c.setCountry(rs.getString("country"));
+				c.setCountryId(rs.getInt("country_id"));
+				c.setLastUpdate(rs.getString("last_update"));
+				list.add(c);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBHelp.close(rs, stmt, conn);
+		}
+		return list;
+	}
 }
