@@ -142,5 +142,17 @@
 			});
 		}
 	});
+	//500에러발생
+	$("#addCity").click(function(){
+		$.ajax({
+			url:"/sakila/insertCity",
+			method:"POST",
+			data:{"city":$("#city").val(),
+					"countryId":$("#countryId").val()},
+			success:function(){
+				console.log("success");
+			}
+		});
+	});
 </script>
 </html>

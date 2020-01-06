@@ -18,12 +18,20 @@ public class InsertAddress extends HttpServlet {
 		String address = request.getParameter("address");
 		String address2 = request.getParameter("address2");
 		String district = request.getParameter("district");
+		int cityId = Integer.parseInt("cityId");
+		String phone = request.getParameter("phone");
+		String postalCode = request.getParameter("postalCode");
 		System.out.println("addressCon:"+ address);
 		System.out.println("address2:"+ address2);
 		System.out.println("district:"+ district);
 		addressDao = new AddressDao();
 		Address a = new Address();
 		a.setAddress(address);
+		a.setAddress2(address2);
+		a.setDistrict(district);
+		a.setCityId(cityId);
+		a.setPhone(phone);
+		a.setPostalCode(postalCode);
 		addressDao.insertAddress(a);
 	}
 }

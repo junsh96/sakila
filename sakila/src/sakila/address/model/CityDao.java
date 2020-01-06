@@ -66,4 +66,20 @@ public class CityDao {
 		}
 		return list;
 	}
+	public void insertCity(City city) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		String sql = "INSERT INTO city(city,country_id,last_update)VALUES(?,?,NOW())";
+		try {
+			conn = DBHelp.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, city.getCity());
+			stmt.setInt(2, city.getCountryId());
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBHelp.close(null, stmt, conn);
+		}
+	}
 }

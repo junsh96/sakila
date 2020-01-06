@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<style>
+	body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    position: relative;
+    overflow-y: auto;
+}
+
+	#aside{
+		width:200px;
+		height:3000px;
+		position:fixed;
+		background:orange;
+		overflow:hidden;
+		float:left;
+	}
+
+	#section{
+		margin-left:300px;
+		margin-right:1000px;
+		margin-bottom:100px;
+		background:white;
+	}
+</style>
+<body>
+	<div id = "aside">
+		
+	</div>
+	<div id = section>
+		<h1>Film 관리</h1>
+			<h2>film 입력</h2>
+				<div>
+					<!-- film add -->
+					<table border = "1">
+						<tr>
+							
+						</tr>
+					</table>
+				</div>
+			<h2>film 목록</h2>
+			<table border = "1">
+				<thead>
+					<tr>
+						<td>film_id</td>
+						<td>title</td>
+						<td>description</td>
+						<td>release_year</td>
+						<td>language</td>
+						<td>rental_duration</td>
+						<td>rental_rate</td>
+						<td>replacement_cost</td>
+						<td>rating</td>
+						<td>special_features</td>
+						<td>last_update</td>
+					</tr>
+				</thead>
+				<tbody id = "filmList">
+					
+				</tbody>
+			</table>
+	</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+	$("#aside").load("/sakila/aside.html");
+	let currentPage =1;
+	$.ajax({
+		url:"/sakila/selectFilmList",
+		method:"POST",
+		data:{"currentPage": currentPage},
+		success:function(json){
+			$("#filmList").empty();
+			$(json).each(function(index, item){
+				temp = "<tr><td>";
+				temp +=item.filmId;
+				temp +="</td><td>";
+				temp +=item.title;
+				temp +="</td><td>";
+				temp +=item.description;
+				temp +="</td><td>";
+				temp +=item.releaseYear;
+				temp +="</td><td>";
+				temp +=item.name;
+				temp +="</td><td>";
+				temp +=item.rentalDuration;
+				temp +="</td><td>";
+				temp +=item.rentalRate;
+				temp +="</td><td>";
+				temp +=item.replacementCost;
+				temp +="</td><td>";
+				temp +=item.rating;
+				temp +="</td><td>";
+				temp +=item.specialFeatures;
+				temp +="</td><td>";
+				temp +=item.lastUpdate;
+				temp +="</td></tr>";
+				$("#filmList").append(temp);
+			});
+		}
+	});
+</script>
+</html>
