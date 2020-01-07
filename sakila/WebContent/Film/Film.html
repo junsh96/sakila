@@ -56,7 +56,6 @@
 					<tr>
 						<td>film_id</td>
 						<td>title</td>
-						<td>description</td>
 						<td>release_year</td>
 						<td>language</td>
 						<td>rental_duration</td>
@@ -71,6 +70,8 @@
 					
 				</tbody>
 			</table>
+			<button id = "preBtn">이전</button>
+			<button id = "nextBtn">다음</button>
 	</div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -78,6 +79,7 @@
 <script>
 	$("#aside").load("/sakila/aside.html");
 	let currentPage =1;
+	//리스트 출력
 	$.ajax({
 		url:"/sakila/selectFilmList",
 		method:"POST",
@@ -87,10 +89,8 @@
 			$(json).each(function(index, item){
 				temp = "<tr><td>";
 				temp +=item.filmId;
-				temp +="</td><td>";
-				temp +=item.title;
-				temp +="</td><td>";
-				temp +=item.description;
+				temp +="</td><td><a href = '/sakila/Film/SelectFilm?filmId="+item.filmId+"'>";
+				temp +=item.title + "</a>";
 				temp +="</td><td>";
 				temp +=item.releaseYear;
 				temp +="</td><td>";
@@ -111,6 +111,87 @@
 				$("#filmList").append(temp);
 			});
 		}
+	});
+	//페이징 이전 버튼
+	$("#preBtn").click(function(){
+		if(currentPage===1){
+			alert("현재 1페이지 입니다.");
+			return;
+		}
+		currentPage -=1;
+		console.log(currentPage);
+		$("#filmList").empty();
+		$.ajax({
+			url:"/sakila/selectFilmList",
+			method:"POST",
+			data:{"currentPage" : currentPage},
+			success:function(json){
+				$(json).each(function(index, item){
+					temp = "<tr><td>";
+					temp +=item.filmId;
+					temp +="</td><td>";
+					temp +=item.title;
+					temp +="</td><td>";
+					temp +=item.description;
+					temp +="</td><td>";
+					temp +=item.releaseYear;
+					temp +="</td><td>";
+					temp +=item.name;
+					temp +="</td><td>";
+					temp +=item.rentalDuration;
+					temp +="</td><td>";
+					temp +=item.rentalRate;
+					temp +="</td><td>";
+					temp +=item.replacementCost;
+					temp +="</td><td>";
+					temp +=item.rating;
+					temp +="</td><td>";
+					temp +=item.specialFeatures;
+					temp +="</td><td>";
+					temp +=item.lastUpdate;
+					temp +="</td></tr>";
+					$("#filmList").append(temp);
+				});
+			}
+		});
+	});
+	$("#nextBtn").click(function(){
+		
+		currentPage +=1;
+		$("#filmList").empty();
+		$.ajax({
+			url:"/sakila/selectFilmList",
+			method:"POST",
+			data:{"currentPage" : currentPage},
+			success:function(json){
+				$(json).each(function(index, item){
+					temp = "<tr><td>";
+					temp +=item.filmId;
+					temp +="</td><td>";
+					temp +=item.title;
+					temp +="</td><td>";
+					temp +=item.description;
+					temp +="</td><td>";
+					temp +=item.releaseYear;
+					temp +="</td><td>";
+					temp +=item.name;
+					temp +="</td><td>";
+					temp +=item.rentalDuration;
+					temp +="</td><td>";
+					temp +=item.rentalRate;
+					temp +="</td><td>";
+					temp +=item.replacementCost;
+					temp +="</td><td>";
+					temp +=item.rating;
+					temp +="</td><td>";
+					temp +=item.specialFeatures;
+					temp +="</td><td>";
+					temp +=item.lastUpdate;
+					temp +="</td></tr>";
+					$("#filmList").append(temp);
+				});
+			}
+		});
 	});
 </script>
 </html>

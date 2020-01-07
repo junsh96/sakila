@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<style>
+	body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    position: relative;
+    overflow-y: auto;
+}
+
+	#aside{
+		width:200px;
+		height:3000px;
+		position:fixed;
+		background:orange;
+		overflow:hidden;
+		float:left;
+	}
+
+	#section{
+		margin-left:300px;
+		margin-right:1000px;
+		margin-bottom:100px;
+		background:white;
+	}
+</style>
+<body>
+	<div id = "aside">
+		
+	</div>
+	<div id =section>
+		<h1>Film 상세보기</h1>
+		<div>
+			title:<input type = "text" readonly="readonly" id = "title">
+		</div>
+		<div>
+			language:<input type = "text" readonly="readonly" id = "language">
+		</div>
+		<div>
+			actor:<input type = "text" readonly="readonly" id = "actor">
+		</div>
+		<div>	
+			<textarea rows="20" cols="50" id = "" readonly="readonly"></textarea>
+		</div>
+	</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+	$("#aside").load("/sakila/aside.html");
+	function searchParam(key) {
+   		return new URLSearchParams(location.search).get(key);
+   	};
+   	console.log(searhParam("filmId"));
+</script>
+</html>
