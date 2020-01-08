@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import sakila.address.db.DBHelp;
 import sakila.film.vo.Film;
 
@@ -37,6 +39,33 @@ public class FilmDao {
 				f.setReplacementCost(rs.getString("replacement_cost"));
 				f.setSpecialFeatures(rs.getString("special_features"));
 				f.setTitle(rs.getString("title"));
+				list.add(f);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBHelp.close(rs, stmt, conn);
+		}
+		return list;
+	}
+	public List<Film> selectFilmOne(HttpServletRequest request) {
+		List<Film> list = new ArrayList<Film>();
+		int filmId = Integer.parseInt(request.getParameter("filmId"));
+		System.out.println("filmId:" +filmId);
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT f.title,f.description,l.name FROM film as f JOIN language as l WHERE f.language_id = l.language_id AND f.film_id = ?";
+		try {
+			conn = DBHelp.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, filmId);
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				Film f = new Film();
+				f.setTitle(rs.getString("title"));
+				f.setDescription(rs.getString("description"));
+				f.setName(rs.getString("name"));
 				list.add(f);
 			}
 		}catch(Exception e) {

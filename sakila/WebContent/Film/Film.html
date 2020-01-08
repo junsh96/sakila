@@ -89,7 +89,7 @@
 			$(json).each(function(index, item){
 				temp = "<tr><td>";
 				temp +=item.filmId;
-				temp +="</td><td><a href = '/sakila/Film/SelectFilm?filmId="+item.filmId+"'>";
+				temp +="</td><td><a href = '/sakila/Film/SelectFilm.html?filmId="+item.filmId+"'>";
 				temp +=item.title + "</a>";
 				temp +="</td><td>";
 				temp +=item.releaseYear;
@@ -129,10 +129,8 @@
 				$(json).each(function(index, item){
 					temp = "<tr><td>";
 					temp +=item.filmId;
-					temp +="</td><td>";
-					temp +=item.title;
-					temp +="</td><td>";
-					temp +=item.description;
+					temp +="</td><td><a href = '/sakila/Film/SelectFilm.html?filmId="+item.filmId+"'>";
+					temp +=item.title + "</a>";
 					temp +="</td><td>";
 					temp +=item.releaseYear;
 					temp +="</td><td>";
@@ -167,10 +165,8 @@
 				$(json).each(function(index, item){
 					temp = "<tr><td>";
 					temp +=item.filmId;
-					temp +="</td><td>";
-					temp +=item.title;
-					temp +="</td><td>";
-					temp +=item.description;
+					temp +="</td><td><a href = '/sakila/Film/SelectFilm.html?filmId="+item.filmId+"'>";
+					temp +=item.title + "</a>";
 					temp +="</td><td>";
 					temp +=item.releaseYear;
 					temp +="</td><td>";

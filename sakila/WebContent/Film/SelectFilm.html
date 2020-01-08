@@ -41,17 +41,17 @@
 	</div>
 	<div id =section>
 		<h1>Film 상세보기</h1>
-		<div>
-			title:<input type = "text" readonly="readonly" id = "title">
+		<div id = "title">
+				title:
 		</div>
-		<div>
-			language:<input type = "text" readonly="readonly" id = "language">
+		<div id = "language">
+			language:
 		</div>
 		<div>
 			actor:<input type = "text" readonly="readonly" id = "actor">
 		</div>
 		<div>	
-			<textarea rows="20" cols="50" id = "" readonly="readonly"></textarea>
+			<textarea rows="10" cols="50" id = "description" readonly="readonly"></textarea>
 		</div>
 	</div>
 </body>
@@ -59,9 +59,47 @@
 
 <script>
 	$("#aside").load("/sakila/aside.html");
+	//filmId를 링크에서 받아온다
 	function searchParam(key) {
    		return new URLSearchParams(location.search).get(key);
    	};
-   	console.log(searhParam("filmId"));
+   	console.log(searchParam("filmId"));
+   	$.ajax({
+   		url:"/sakila/selectFilmOne",
+   		method:"POST",
+   		data:{"filmId":searchParam("filmId")},
+   		success:function(json){
+   			$(json).each(function(index, item){
+   				temp = item.title;
+   				$("#title").append(temp);
+   				console.log("title:" +item.title);
+   			});
+   		}
+   	});
+   	$.ajax({
+   		url:"/sakila/selectFilmOne",
+   		method:"POST",
+   		data:{"filmId":searchParam("filmId")},
+   		success:function(json){
+   			$(json).each(function(index, item){
+   				temp = item.name;
+   				$("#language").append(temp);
+   				console.log("language:" +item.name);
+   			});
+   		}
+   	});
+	$.ajax({
+   		url:"/sakila/selectFilmOne",
+   		method:"POST",
+   		data:{"filmId":searchParam("filmId")},
+   		success:function(json){
+   			$(json).each(function(index, item){
+   				temp = item.description;
+   				$("#description").append(temp);
+   				console.log("description:" +item.description);
+   			});
+   		}
+   	});
+   	
 </script>
 </html>
